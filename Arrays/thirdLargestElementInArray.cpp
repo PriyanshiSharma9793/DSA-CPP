@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-//#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 // int thirdLargest(vector <int> &arr){
 //     int n=arr.size();
@@ -45,4 +45,30 @@ using namespace std;
 // }
 
 //[Expected Approach - 2] Using Three variables - O(n) time and O(1) space
+int  thirdelement(vector<int> &arr){
+    int n=arr.size();
+    int first= INT_MIN, second= INT_MIN , third= INT_MIN;
+    for(int i=0;i<n;i++){
+        if(arr[i]>first){
+          third=second;
+          second=first;
+          first=arr[i];
+        }
+        else if(arr[i]>second){
+            third=second;
+            second=arr[i];
+        }
+
+       else if (arr[i] > third) {
+            third = arr[i];
+        }
+    }
+    return third;
+}
+   int main() {
+    vector<int> arr = {1, 14, 2, 16, 10, 20};
+    cout << thirdelement(arr) << endl;
+
+    return 0;
+}
 
