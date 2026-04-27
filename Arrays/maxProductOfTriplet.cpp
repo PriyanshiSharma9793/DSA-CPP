@@ -23,15 +23,65 @@
 //     cout<<maxProduct(arr)<<endl;
 // }
 // //[Better Approach] By Using sorting - Time O(n*log(n)) and Space O(1)
-int maxProduct(vector<int> arr){
-    int n=arr.size();
-    sort(arr.begin(),arr.end());
-    return max(arr[0]*arr[1]*arr[n-1],
-    arr[n-1]*arr[n-2]*arr[n-3]);
+// int maxProduct(vector<int> arr){
+//     int n=arr.size();
+//     sort(arr.begin(),arr.end());
+//     return max(arr[0]*arr[1]*arr[n-1],
+//     arr[n-1]*arr[n-2]*arr[n-3]);
+// }
+// int main(){
+// vector <int> arr={-10,-3,5,6,-20};
+// int max=maxProduct(arr);
+// cout<<max<<endl;
+// return 0;
+// }
+
+int maxProduct(vector<int> &arr)
+{
+    int n = arr.size();
+
+    int maxA = INT_MIN, maxB = INT_MIN, maxC = INT_MIN;
+
+    int minA = INT_MAX, minB = INT_MAX;
+
+    for (int i = 0; i < n; i++)
+    {
+     
+        if (arr[i] > maxA)
+        {
+            maxC = maxB;
+            maxB = maxA;
+            maxA = arr[i];
+        }
+       
+        else if (arr[i] > maxB)
+        {
+            maxC = maxB;
+            maxB = arr[i];
+        }
+  
+        else if (arr[i] > maxC)
+            maxC = arr[i];
+
+       
+        if (arr[i] < minA)
+        {
+            minB = minA;
+            minA = arr[i];
+        }
+        // Update second minimum element
+        else if (arr[i] < minB)
+            minB = arr[i];
+    }
+
+    return max(minA * minB * maxA, maxA * maxB * maxC);
 }
-int main(){
-vector <int> arr={-10,-3,5,6,-20};
-int max=maxProduct(arr);
-cout<<max<<endl;
-return 0;
+
+int main()
+{
+    vector<int>arr = {-10, -3, 5, 6, -20};
+
+    cout<<maxProduct(arr)<<endl;
+    
+    return 0;
 }
